@@ -1,5 +1,4 @@
 package com.example.superheros.ui.theme
-
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -47,7 +46,6 @@ private val LightColors = lightColorScheme(
     scrim = md_theme_light_scrim,
 )
 
-
 private val DarkColors = darkColorScheme(
     primary = md_theme_dark_primary,
     onPrimary = md_theme_dark_onPrimary,
@@ -81,9 +79,10 @@ private val DarkColors = darkColorScheme(
 )
 
 @Composable
-fun SuperherosTheme(
+fun SuperheroesTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
+    // Dynamic color in this app is turned off for learning purposes
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
@@ -100,15 +99,15 @@ fun SuperherosTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+            window.statusBarColor = colorScheme.background.toArgb()
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
         }
     }
 
     MaterialTheme(
         colorScheme = colorScheme,
-        shapes = Shapes,
         typography = Typography,
+        shapes = Shapes,
         content = content
     )
 }
